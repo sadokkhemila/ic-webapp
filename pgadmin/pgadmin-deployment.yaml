@@ -20,29 +20,29 @@ spec:
         - image: dpage/pgadmin4
           name: pg-admin
           env:
-            - name: USER_EMAIL
+            - name: PGADMIN_DEFAULT_EMAIL
               value: pgadmin@pgadmin.com
-            - name: PGADMIN_PAWSSORD
+            - name: PGADMIN_DEFAULT_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: pg-admin
-                  key: PGADMIN_PASSWORD
+                  key: PGADMIN_DEFAULT_PASSWORD
           ports:
             - containerPort: 5050
               name: postgres
           volumeMounts:
             - name: pg-admin-server
               mountPath: /pgadmin4/servers.json
+              subPath: servers.json
             - name: pg-admin-data
-              mouthPath: /var/lib/pgadmin
-
+              mountPath: /var/lib/pgadmin
       volumes:
         - name: pg-admin-server
-          ConfigMap:
-            name: special-config
+          configMap:
+            name: pgadmin-config
             items:
               - key: servers.json
                 path: servers.json
         - name: pg-admin-data
           persistentVolumeClaim:
-            claimName: pgadmin-vpc
+            claimName: pgadmin-pvc
