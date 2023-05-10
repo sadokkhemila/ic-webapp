@@ -35,13 +35,13 @@ spec:
               name: pgadmin-data
             - mouthPath: /var/lib/pgadmin
               name: pgadmin-data
-          volumes:
-            - name: pgadmin-data
-              ConfigMap:
-                name: special-config
-                items:
-                  - key: servers.json
-                    path: servers.json
-            - name: lib-pgadmin-storage
+      volumes:
+          - name: pgadmin-data
+            ConfigMap:
+              name: special-config
+              items:
+                - key: servers.json
+                  path: servers.json
+          - name: lib-pgadmin-storage
               persistentVlumeClaim:
                 claimName: pgadmin-vpc

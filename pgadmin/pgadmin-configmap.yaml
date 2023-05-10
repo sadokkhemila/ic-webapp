@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: pgadmin-configmap
-  namespace: api-webapp
+  namespace: ic-webapp
   labels:
     env: prod
 
