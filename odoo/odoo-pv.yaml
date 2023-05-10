@@ -15,4 +15,4 @@ spec:
 
   storageClassName: manual
   hostpath:
-    path: "/data_path/lib-odoo"
+    path: "/data_k8s/lib-odoo"
