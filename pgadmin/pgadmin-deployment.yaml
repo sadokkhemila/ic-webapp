@@ -1,47 +1,48 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pgadmin
+  name: pg-admin
   labels:
-    app: pgadmin
+    app: pg-admin
     env: prod
   namespace: ic-webapp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: pgadmin
+      app: pg-admin
   template:
     metadata:
       labels:
-        app: pgadmin
+        app: pg-admin
     spec:
       containers:
-        - image: pgadmin
-          name: pgadmin
+        - image: dpage/pgadmin4
+          name: pg-admin
           env:
-            - name: USER-mail
+            - name: USER_EMAIL
               value: pgadmin@pgadmin.com
             - name: PGADMIN_PAWSSORD
               valueFrom:
                 secretKeyRef:
-                  name: pgadmin
+                  name: pg-admin
                   key: PGADMIN_PASSWORD
           ports:
             - containerPort: 5050
-              name: pgadmin
+              name: postgres
           volumeMounts:
-            - mountPath: /pgadmin4
-              name: pgadmin-data
-            - mouthPath: /var/lib/pgadmin
-              name: pgadmin-data
+            - name: pg-admin-server
+              mountPath: /pgadmin4
+            - name: pg-admin-data
+              mouthPath: /var/lib/pgadmin
+
       volumes:
-          - name: pgadmin-data
-            ConfigMap:
-              name: special-config
-              items:
-                - key: servers.json
-                  path: servers.json
-          - name: lib-pgadmin-storage
-              persistentVlumeClaim:
-                claimName: pgadmin-vpc
+        - name: pg-admin-server
+          ConfigMap:
+            name: special-config
+            items:
+              - key: servers.json
+                path: servers.json
+        - name: pg-admin-data
+          persistentVolumeClaim:
+            claimName: pgadmin-vpc

@@ -36,9 +36,9 @@ spec:
             - mountPath: /etc/odoo
               name: odoo-data
       volumes:
-          - name: odoo-data
-            hostPath:
-              path: /data_odoo/addons
-          - name: lib-odoo-storage
-              persistentVlumeClaim:
-                claimName: odoo-vpc
+        - name: odoo-data
+          hostPath:
+            path: /data_odoo/addons
+        - name: lib-odoo-storage
+          persistentVolumeClaim:
+            claimName: odoo-vpc

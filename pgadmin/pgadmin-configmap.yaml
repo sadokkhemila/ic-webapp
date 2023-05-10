@@ -1,23 +1,24 @@
 apiVersion: v1
+data:
+  servers.json: |
+    {
+      "Servers":
+        {
+          "1":
+            {
+              "Name": "docker_postgres",
+              "Group": "docker_postgres_group",
+              "Port": 5432,
+              "Username": "odoo_user",
+              "Host": "postgres",
+              "SSLMode": "prefer",
+              "MaintenanceDB": "postgres"
+            }
+        }
+    }
 kind: ConfigMap
 metadata:
   name: pgadmin-configmap
   namespace: ic-webapp
   labels:
     env: prod
-
-data:
-  servers.json: |
-    {
-      "Servers": {
-             "1": {
-                "Name": "Minimally Defined Server",
-                "Group": "Server Group 1",
-                "Port": 5432,
-                "Username": "postgres",
-                "Host": "localhost",
-                "SSLMode": "prefer",
-                "MaintenanceDB": "postgres"
-            }
-          }
-    }

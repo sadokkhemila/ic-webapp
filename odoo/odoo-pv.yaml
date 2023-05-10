@@ -14,5 +14,5 @@ spec:
     - ReadWriteMany
 
   storageClassName: manual
-  hostpath:
+  hostPath:
     path: "/data_k8s/lib-odoo"
